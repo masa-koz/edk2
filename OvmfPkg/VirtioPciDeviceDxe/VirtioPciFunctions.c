@@ -13,6 +13,7 @@
 #include <Library/BaseMemoryLib.h>
 #include <Library/DebugLib.h>
 #include <Library/MemoryAllocationLib.h>
+#include <Library/MemEncryptSevLib.h>
 #include <Library/UefiBootServicesTableLib.h>
 #include <Library/UefiLib.h>
 #include "VirtioPciDevice.h"
@@ -284,7 +285,7 @@ VirtioPciAllocateSharedPages (
   if (Buffer == NULL) {
     return EFI_OUT_OF_RESOURCES;
   }
-
+  MemEncryptSevClearPageEncMask(0, (UINTN)Buffer, NumPages);
   *HostAddress = Buffer;
   return EFI_SUCCESS;
 }
@@ -297,6 +298,7 @@ VirtioPciFreeSharedPages (
   IN  VOID                    *HostAddress
   )
 {
+  MemEncryptSevSetPageEncMask(0, (UINTN)HostAddress, NumPages);
   FreePages (HostAddress, NumPages);
 }
 

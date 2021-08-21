@@ -27,6 +27,7 @@
 
 [LibraryClasses]
   BaseMemoryLib
+  MemEncryptSevLib
   DebugLib
   MemoryAllocationLib
   UefiBootServicesTableLib

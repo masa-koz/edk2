@@ -8,7 +8,10 @@
 
 **/
 
+#include <Library/BaseMemoryLib.h>
 #include <Library/MemoryAllocationLib.h>
+#include <Library/MemEncryptSevLib.h>
+
 
 #include "VirtioNet.h"
 
@@ -18,6 +21,7 @@
 //
 typedef struct {
   VOID                  *Buffer;
+  VOID                  *Buffer2;
   EFI_PHYSICAL_ADDRESS  DeviceAddress;  // lookup key for reverse mapping
   VOID                  *BufMap;
 } TX_BUF_MAP_INFO;
@@ -133,16 +137,21 @@ VirtioNetMapTxBuf (
   TX_BUF_MAP_INFO           *TxBufMapInfo;
   EFI_PHYSICAL_ADDRESS      Address;
   VOID                      *Mapping;
+  VOID                      *Buffer2;
 
   TxBufMapInfo = AllocatePool (sizeof (*TxBufMapInfo));
   if (TxBufMapInfo == NULL) {
     return EFI_OUT_OF_RESOURCES;
   }
 
+  Buffer2 = AllocatePages(1);
+  MemEncryptSevClearPageEncMask(0, (UINTN)Buffer2, 1);
+  CopyMem(Buffer2, Buffer, NumberOfBytes);
+
   Status = VirtioMapAllBytesInSharedBuffer (
              Dev->VirtIo,
              VirtioOperationBusMasterRead,
-             Buffer,
+             Buffer2,
              NumberOfBytes,
              &Address,
              &Mapping
@@ -152,6 +161,7 @@ VirtioNetMapTxBuf (
   }
 
   TxBufMapInfo->Buffer = Buffer;
+  TxBufMapInfo->Buffer2 = Buffer2;
   TxBufMapInfo->DeviceAddress = Address;
   TxBufMapInfo->BufMap = Mapping;
 
@@ -232,6 +242,8 @@ VirtioNetUnmapTxBuf (
 
   *Buffer = TxBufMapInfo->Buffer;
   Dev->VirtIo->UnmapSharedBuffer (Dev->VirtIo, TxBufMapInfo->BufMap);
+  MemEncryptSevSetPageEncMask(0, (UINTN)TxBufMapInfo->Buffer2, 1);
+  FreePages(TxBufMapInfo->Buffer2, 1);
   FreePool (TxBufMapInfo);
 
   return EFI_SUCCESS;
