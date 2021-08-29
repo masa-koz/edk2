@@ -85,7 +85,10 @@ gUefiOvmfPkgTokenSpaceGuid.PcdOvmfSecGhcbBase|gUefiOvmfPkgTokenSpaceGuid.PcdOvmf
 0x00B000|0x001000
 gUefiCpuPkgTokenSpaceGuid.PcdSevEsWorkAreaBase|gUefiCpuPkgTokenSpaceGuid.PcdSevEsWorkAreaSize
 
-0x00C000|0x001000
+0x00C000|0x000C00
+gUefiOvmfPkgTokenSpaceGuid.PcdSevLaunchSecretBase|gUefiOvmfPkgTokenSpaceGuid.PcdSevLaunchSecretSize
+
+0x00CC00|0x001000
 gUefiOvmfPkgTokenSpaceGuid.PcdOvmfSecGhcbBackupBase|gUefiOvmfPkgTokenSpaceGuid.PcdOvmfSecGhcbBackupSize
 
 0x010000|0x010000
@@ -172,6 +175,7 @@ INF  MdeModulePkg/Universal/Variable/Pei/VariablePei.inf
 INF  OvmfPkg/SmmAccess/SmmAccessPei.inf
 !endif
 INF  UefiCpuPkg/CpuMpPei/CpuMpPei.inf
+INF  OvmfPkg/AmdSev/SecretPei/SecretPei.inf
 
 !if $(TPM_ENABLE) == TRUE
 INF  OvmfPkg/Tcg/TpmMmioSevDecryptPei/TpmMmioSevDecryptPei.inf
@@ -307,6 +311,7 @@ INF  ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
 INF  ShellPkg/DynamicCommand/HttpDynamicCommand/HttpDynamicCommand.inf
 INF  OvmfPkg/LinuxInitrdDynamicShellCommand/LinuxInitrdDynamicShellCommand.inf
 !endif
+INF OvmfPkg/AmdSev/SecretDxe/SecretDxe.inf
 INF  ShellPkg/Application/Shell/Shell.inf
 
 INF MdeModulePkg/Logo/LogoDxe.inf

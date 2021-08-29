@@ -40,7 +40,7 @@
   #
   DEFINE NETWORK_TLS_ENABLE             = FALSE
   DEFINE NETWORK_IP6_ENABLE             = FALSE
-  DEFINE NETWORK_HTTP_BOOT_ENABLE       = FALSE
+  DEFINE NETWORK_HTTP_BOOT_ENABLE       = TRUE
   DEFINE NETWORK_ALLOW_HTTP_CONNECTIONS = TRUE
   DEFINE NETWORK_ISCSI_ENABLE           = TRUE
 
@@ -715,6 +715,7 @@
   OvmfPkg/SmmAccess/SmmAccessPei.inf
 !endif
   UefiCpuPkg/CpuMpPei/CpuMpPei.inf
+  OvmfPkg/AmdSev/SecretPei/SecretPei.inf
 
 !if $(TPM_ENABLE) == TRUE
   OvmfPkg/Tcg/TpmMmioSevDecryptPei/TpmMmioSevDecryptPei.inf
@@ -934,6 +935,8 @@
       gEfiShellPkgTokenSpaceGuid.PcdShellLibAutoInitialize|FALSE
   }
 !endif
+  OvmfPkg/AmdSev/SecretDxe/SecretDxe.inf
+  
   ShellPkg/Application/Shell/Shell.inf {
     <LibraryClasses>
       ShellCommandLib|ShellPkg/Library/UefiShellCommandLib/UefiShellCommandLib.inf
