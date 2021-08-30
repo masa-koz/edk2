@@ -1535,6 +1535,10 @@ PlatformBootManagerAfterConsole (
     &gUefiShellFileGuid, L"EFI Internal Shell", LOAD_OPTION_ACTIVE
     );
 
+  PlatformRegisterFvBootOption (
+    &gipxeFileGuid, L"iPXE", LOAD_OPTION_ACTIVE
+    );
+
   RemoveStaleFvFileOptions ();
   SetBootOrderFromQemu ();
 

@@ -311,7 +311,8 @@ INF  ShellPkg/DynamicCommand/TftpDynamicCommand/TftpDynamicCommand.inf
 INF  ShellPkg/DynamicCommand/HttpDynamicCommand/HttpDynamicCommand.inf
 INF  OvmfPkg/LinuxInitrdDynamicShellCommand/LinuxInitrdDynamicShellCommand.inf
 !endif
-INF OvmfPkg/AmdSev/SecretDxe/SecretDxe.inf
+INF  OvmfPkg/AmdSev/SecretDxe/SecretDxe.inf
+INF  OvmfPkg/AmdSev/ipxe/ipxe.inf
 INF  ShellPkg/Application/Shell/Shell.inf
 
 INF MdeModulePkg/Logo/LogoDxe.inf

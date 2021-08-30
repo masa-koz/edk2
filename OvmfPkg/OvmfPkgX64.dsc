@@ -936,6 +936,7 @@
   }
 !endif
   OvmfPkg/AmdSev/SecretDxe/SecretDxe.inf
+  OvmfPkg/AmdSev/ipxe/ipxe.inf
   
   ShellPkg/Application/Shell/Shell.inf {
     <LibraryClasses>

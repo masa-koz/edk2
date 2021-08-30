@@ -71,3 +71,4 @@
   gRootBridgesConnectedEventGroupGuid
   gUefiShellFileGuid
   gGrubFileGuid
+  gipxeFileGuid

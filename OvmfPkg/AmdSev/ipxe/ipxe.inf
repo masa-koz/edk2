@@ -1,0 +1,30 @@
+##  @file
+#  Create a Firmware Volume based iPXE Bootloader
+#
+#  Copyright (C) 2021 Masahiro Kozuka, SEERA Networks, Inc.
+#
+#  SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010006
+  BASE_NAME                      = ipxe
+  # This is gipxeFileGuid
+  FILE_GUID                      = aec758dd-0c0a-4052-a44e-7db15afe2a3c
+  MODULE_TYPE                    = UEFI_DRIVER
+  VERSION_STRING                 = 1.0
+  ENTRY_POINT                    = efi_start
+
+[Packages]
+  OvmfPkg/OvmfPkg.dec
+
+#
+# The following information is for reference only and not required by
+# the build tools.
+#
+#  VALID_ARCHITECTURES           = X64
+#
+
+[Binaries]
+   PE32|ipxe.efi|*
